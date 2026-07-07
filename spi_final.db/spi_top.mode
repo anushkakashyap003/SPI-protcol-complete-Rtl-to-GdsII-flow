@@ -1,0 +1,69 @@
+if {![namespace exists ::IMEX]} { namespace eval ::IMEX {} }
+set ::IMEX::dataVar [file dirname [file normalize [info script]]]
+set ::IMEX::libVar ${::IMEX::dataVar}/libs
+
+catch { setAnalysisMode -analysisType bcwc }
+catch { setAnalysisMode -checkType setup }
+catch { setAnalysisMode -clkSrcPath true }
+catch { setAnalysisMode -clockPropagation sdcControl }
+catch { setAnalysisMode -usefulSkew true }
+catch { setOptMode -activeHoldViews { fast_view } }
+catch { setOptMode -activeSetupViews { slow_view } }
+catch { setOptMode -autoHoldViews { fast_view} }
+catch { setOptMode -autoSetupViews { slow_view} }
+catch { setOptMode -autoTDGRSetupViews { slow_view} }
+catch { setOptMode -autoViewHoldTargetSlack 0 }
+catch { setOptMode -drcMargin 0 }
+catch { setOptMode -fixDrc true }
+catch { setOptMode -optimizeFF true }
+catch { setOptMode -preserveAllSequential false }
+catch { setOptMode -setupTargetSlack 0 }
+catch { setPathGroupOptions reg2reg -effortLevel high -weight 2 }
+catch { setPathGroupOptions tdgp_reg2reg_default -effortLevel high }
+catch { setPathGroupOptions default -effortLevel low }
+catch { setExtractRCMode  -engine postRoute -total_c_th 5 -relative_c_th 0.03 -coupling_c_th 3 }
+catch {setNanoRouteMode -quiet -drouteUseLefPinTaperRule true}
+catch {setNanoRouteMode -quiet -drouteUseMinSpacingForBlockage auto}
+catch {setNanoRouteMode -quiet -extractDesignSignature 74323587}
+catch {setNanoRouteMode -quiet -extractRcModelFile "${::IMEX::libVar}/misc/rc_model.bin"}
+catch {setNanoRouteMode -quiet -extractThirdPartyCompatible false}
+catch {setNanoRouteMode -quiet -grouteExpTdStdDelay 36.200000}
+catch {setNanoRouteMode -quiet -grouteExpTdUseTifTimingEngineForImportDesign false}
+catch {setNanoRouteMode -quiet -routeStrictlyHonorNonDefaultRule "false"}
+catch {setNanoRouteMode -quiet -timingEngine ".timing_file_2045464.tif.gz"}
+
+catch { setPlaceMode -autoEnableFGCUnder10nm false }
+catch { setPlaceMode -autoEnableFGCUnder16nm false }
+catch { setPlaceMode -exp_gigaplace_padding_adjustments_for_adv_nodes true }
+catch { setPlaceMode -exp_slack_driven true }
+catch { setPlaceMode -expAdvPinAccess false }
+catch { setPlaceMode -expAutoPinAccessLayer false }
+catch { setPlaceMode -expPaddingMinPadRatio 1.1 }
+catch { setPlaceMode -ipReuseSKPTG true }
+catch { setPlaceMode -ipTimingEffortLow false }
+catch { setPlaceMode -place_detail_color_aware_legal false }
+catch { setPlaceMode -place_detail_drc_check_short_only true }
+catch { setPlaceMode -place_global_ignore_scan true }
+catch { setPlaceMode -place_global_reorder_scan false }
+catch { setPlaceMode -place_global_timing_effort low }
+catch { setPlaceMode -RTCSpread false }
+catch { setPlaceMode -tdgp_all_view_vsm false }
+catch { setPlaceMode -tdgp_start_iteration 5 }
+catch { setPlaceMode -tdgpSlackMarginCTEAdjust true }
+catch { setPlaceMode -tdgpSlackMarginKeepPositiveSoftPhaseSlack true }
+catch { setPlaceMode -timingDriven true }
+catch { setIlmMode -keepHighFanoutPorts true -keepLoopBack false -keepInstInSdc false -keepFlatten true }
+catch { setUsefulSkewMode -ecoRoute false }
+catch { setDelayCalMode -enable_high_fanout true }
+catch { setDelayCalMode -engine aae }
+catch { setDelayCalMode -ignoreNetLoad false }
+catch { setDelayCalMode -SIAware true }
+catch { setDelayCalMode -socv_accuracy_mode low }
+catch { setImportMode -discardFloatingVNets false }
+catch { setImportMode -keepEmptyModule true }
+catch { setSIMode -separate_delta_delay_on_data true }
+catch { setRouteMode -earlyGlobalRouteSecondPG false }
+catch { setFPlanMode -defaultTechSite gsclib090site }
+catch { setFPlanMode -maxIoHeight false }
+catch { setFPlanMode -place_check_ignore_fixed_cell_list {} }
+catch { setFPlanMode -powerRailLayer {} }
